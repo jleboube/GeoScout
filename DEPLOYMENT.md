@@ -28,6 +28,23 @@ NODE_ENV=production
 
 ### Building and Running
 
+#### For VMs with AppArmor Issues:
+
+If you encounter AppArmor errors during build (common on some VMs), use this workaround:
+
+```bash
+# Create a temporary daemon config override
+export DOCKER_BUILDKIT=0
+
+# Build without BuildKit (avoids AppArmor issues)
+docker compose build
+
+# Or build with the build script
+./build.sh
+```
+
+#### Standard Build:
+
 1. Build the Docker image:
 ```bash
 docker compose build
