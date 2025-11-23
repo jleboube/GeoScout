@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile
       args:
         - GEMINI_API_KEY=${GEMINI_API_KEY}
+      # Disable AppArmor for build to work on VMs with misconfigured AppArmor
+      security_opt:
+        - apparmor:unconfined
     container_name: geoscout-app
     ports:
       - "7843:80"
@@ -14,6 +17,9 @@ services:
     restart: unless-stopped
     networks:
       - geoscout-network
+    # Disable AppArmor for runtime to work on VMs with misconfigured AppArmor
+    security_opt:
+      - apparmor:unconfined
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/"]
       interval: 30s
