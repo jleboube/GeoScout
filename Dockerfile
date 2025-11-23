@@ -33,16 +33,12 @@ RUN npm run build
 
 # Stage 3: Production runner with Nginx
 FROM nginx:alpine AS runner
-WORKDIR /usr/share/nginx/html
 
-# Remove default nginx static files
-RUN rm -rf ./*
-
-# Copy built files from builder
-COPY --from=builder /app/dist .
-
-# Copy nginx configuration
+# Copy nginx configuration first
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy built files from builder (this will overwrite default nginx files)
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose port (will be mapped to obscure port in docker-compose)
 EXPOSE 80
