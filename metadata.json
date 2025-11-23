@@ -1,0 +1,8 @@
+{
+  "name": "GeoScout AI",
+  "description": "An advanced AI application that analyzes images to pinpoint their location using Gemini 2.5 Flash with Google Search and Maps grounding.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
